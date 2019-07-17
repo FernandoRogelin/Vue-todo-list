@@ -7,9 +7,9 @@
         <Button :addItem="addItem" name="Add item" />
       </div>
       <ul class="home-result">
-        <li v-for="list in lists" v-bind:key="list[list]" class="home-list">
+        <li v-for="(list, index) in lists" v-bind:key="list[list]" class="home-list">
           {{ list }}
-          <span v-on:click="removeItem(list)">X</span>
+          <span class="home-remove" v-on:click="removeItem(index)">X</span>
         </li>
       </ul>
     </div>
@@ -36,8 +36,8 @@ export default {
     addItem() {
       this.lists.push(this.text);
     },
-    removeItem(item) {
-      console.log(item);
+    removeItem(index) {
+      this.lists.splice(index, 1);
     }
   }
 };
@@ -73,15 +73,21 @@ export default {
   }
 
   &-list {
-    display: block;
+    display: flex;
     margin: 0 20px;
     padding: 10px 0;
     font-size: 18px;
-    color: #2e4852;
+    color: #ffffff;
+    justify-content: space-between;
 
     &:not(:last-child) {
       border-bottom: 1px solid #afafaf;
     }
+  }
+
+  &-remove {
+    color: #000;
+    cursor: pointer;
   }
 }
 </style>
